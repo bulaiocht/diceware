@@ -1,26 +1,23 @@
 package diceware;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WordListReader {
 
-    private static final String LIST = "src/main/resources/wordlist";
-
     private Map<Integer, String> dictionary = new HashMap<>();
 
     public Map<Integer, String> readWordList(){
+
+        InputStream inputStream = getClass().getResourceAsStream("/wordlist");
 
         BufferedReader reader = null;
 
         try {
 
-            reader = new BufferedReader(new FileReader(LIST));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
             boolean running = true;
 

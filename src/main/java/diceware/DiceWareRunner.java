@@ -9,7 +9,7 @@ import java.util.*;
 
 public class DiceWareRunner {
 
-    private static final String PASS_FILE = "src/main/resources/pass";
+    private static final String PASS_FILE = "pass";
 
     public static void main(String[] args) {
 
