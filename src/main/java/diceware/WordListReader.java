@@ -10,8 +10,7 @@ import java.util.Map;
 
 public class WordListReader {
 
-    private static final String LIST = "src/main/resources/word" +
-            "list";
+    private static final String LIST = "src/main/resources/wordlist";
 
     private Map<Integer, String> dictionary = new HashMap<>();
 

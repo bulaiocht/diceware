@@ -1,0 +1,50 @@
+1. go to project dir
+2. git init
+3. git add .
+4. 
+	- git config user.email "my-email@email.com"
+	- git config user.name "My Name"
+
+5. git commit -m "My commit message"
+6. git remote add origin https://github.com/bulaiocht/diceware.git
+7. git push -u origin master
+	- Username for 'https://github.com': my-username
+	- Password for 'https://bulaiocht@github.com': my-pass
+
+8. git clone https://github.com/bulaiocht/diceware.git
+
+To remove files:
+git rm --cached src/main/java/file.java
+
+To remove directories:
+git rm -r --cached src
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
