@@ -5,7 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class DiceWareRunner {
 
@@ -29,9 +30,9 @@ public class DiceWareRunner {
     }
 
     public static String getPassword(Map<Integer, String> dictionary,
-                                     int numOfWords){
+                                     int numOfWords) {
 
-        StringJoiner joiner = new StringJoiner("-","{","}");
+        StringJoiner joiner = new StringJoiner("-", "{", "}");
 
         for (int i = 0; i < numOfWords; i++) {
             int key = DiceThrower.throwDice();
@@ -42,14 +43,14 @@ public class DiceWareRunner {
         return joiner.toString();
     }
 
-    public static void saveToFile(String password){
+    public static void saveToFile(String password) {
 
         Path path = Paths.get(PASS_FILE);
         try {
             //Files.deleteIfExists(path);
             boolean exists = Files.exists(path);
 
-            if (!exists){
+            if (!exists) {
                 Files.createFile(path);
             }
 
@@ -64,16 +65,8 @@ public class DiceWareRunner {
     }
 
 
-
-
-
-
-
-
-
-
 //    private static void collExamples(){
-        //        ArrayList list = new ArrayList();
+    //        ArrayList list = new ArrayList();
 //
 //        list.add(1);
 //        list.add(3);

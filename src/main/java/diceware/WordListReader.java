@@ -1,7 +1,10 @@
 package diceware;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +12,7 @@ public class WordListReader {
 
     private Map<Integer, String> dictionary = new HashMap<>();
 
-    public Map<Integer, String> readWordList(){
+    public Map<Integer, String> readWordList() {
 
         InputStream inputStream = getClass().getResourceAsStream("/wordlist");
 
@@ -21,11 +24,11 @@ public class WordListReader {
 
             boolean running = true;
 
-            while (running){
+            while (running) {
 
                 String line = reader.readLine();
 
-                if (line != null){
+                if (line != null) {
 
                     String[] split = line.split("\t");
 

@@ -8,7 +8,7 @@ public class DiceThrower {
 
     private static final int SIDES = 6;
 
-    public static int throwDice(){
+    public static int throwDice() {
 
         Random random = new Random();
 
