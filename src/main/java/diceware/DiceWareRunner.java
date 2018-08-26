@@ -5,36 +5,63 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
 public class DiceWareRunner {
 
     private static final String PASS_FILE = "pass";
+    private static final String DELIM = "-";
+    private static final Integer COMPL = 6;
+    private static final String DELIMITERS = "[^a-zA-Z0-9]";
 
     public static void main(String[] args) {
 
+        Map<String, String> argMap = analyzeArgs(args);
         WordListReader reader = new WordListReader();
-
         Map<Integer, String> dictionary = reader.readWordList();
 
-        int complexity = 6;
-
         for (int i = 0; i < 10; i++) {
-
-            String password = getPassword(dictionary, complexity);
+            String password = getPassword(dictionary, argMap);
             System.out.println("Your password is: " + password);
             saveToFile(password);
-
         }
     }
 
+    private static Map<String, String> analyzeArgs(String[] args) {
+        Map<String, String> argMap = new HashMap<>();
+        if (args.length != 2){
+            argMap.put("delimiter", DELIM);
+            argMap.put("complexity", COMPL.toString());
+        } else {
+            String delimiter;
+            if (!args[0].matches(DELIMITERS)){
+                delimiter = DELIM;
+            } else delimiter = args[0];
+            Integer complexity;
+            try {
+                complexity = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.out.println("Unknown complexity." +
+                        " Falling back to default: " + COMPL);
+                complexity = COMPL;
+            }
+            argMap.put("delimiter", delimiter);
+            argMap.put("complexity", complexity.toString());
+        }
+        return argMap;
+    }
+
+
+
     public static String getPassword(Map<Integer, String> dictionary,
-                                     int numOfWords) {
+                                     Map<String, String> arguments) {
+        String delimiter = arguments.get("delimiter");
+        int complexity = Integer.parseInt(arguments.get("complexity"));
 
-        StringJoiner joiner = new StringJoiner("-", "{", "}");
-
-        for (int i = 0; i < numOfWords; i++) {
+        StringJoiner joiner = new StringJoiner(delimiter, "{", "}");
+        for (int i = 0; i < complexity; i++) {
             int key = DiceThrower.throwDice();
             String value = dictionary.get(key);
             joiner.add(value);
@@ -42,6 +69,8 @@ public class DiceWareRunner {
 
         return joiner.toString();
     }
+
+
 
     public static void saveToFile(String password) {
 
@@ -64,67 +93,5 @@ public class DiceWareRunner {
 
     }
 
-
-//    private static void collExamples(){
-    //        ArrayList list = new ArrayList();
-//
-//        list.add(1);
-//        list.add(3);
-//        list.add(8);
-//        list.add(" ");
-//        list.add('a');
-//
-//        Integer integer = 8;
-//
-//        for (Object o : list) {
-//            System.out.println(o);
-//        }
-//
-//        ArrayList<Integer> integers = new ArrayList<>();
-//
-//        integers.add(3);
-//        integers.add(3);
-//        integers.add(3);
-//        integers.add(3);
-//        integers.add(3);
-//        integers.add(3);
-//
-//        System.out.println("size is " + integers.size());
-//
-//        Map<Integer, String> dictionary = new HashMap<>();
-//
-//        dictionary.put(6565, "wipe");
-//
-//        System.out.println("dictionary size: " + dictionary.size());
-//
-//        String s = dictionary.get(6565);
-//
-//        System.out.println(s);
-//
-//        HashMap.SimpleEntry<Integer, String> pair = new AbstractMap.SimpleEntry<>(2 , "Value");
-//
-//        System.out.println(pair.getKey());
-//        System.out.println(pair.getValue());
-//
-//        Integer integerVal;
-//        Double doubleVal;
-//        Float floatVal;
-//        Long longVal;
-//        Boolean boolVal;
-//        Short shortVal;
-//        Character charVal;
-//        Byte byteVal;
-//
-//        int i = Integer.parseInt("6565");
-//
-//        integerVal = 6;
-//
-//        System.out.println(Objects.hashCode(integerVal));
-//
-//        integerVal = 7;
-//
-//        System.out.println(Objects.hashCode(integerVal));
-
-//    }
 }
 
